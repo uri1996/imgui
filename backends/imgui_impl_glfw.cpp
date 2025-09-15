@@ -114,13 +114,14 @@
 #endif
 
 // GLFW
-#include <GLFW/glfw3.h>
+#include <../GLFW/include/GLFW/glfw3.h>
 
 #ifdef _WIN32
 #undef APIENTRY
 #ifndef GLFW_EXPOSE_NATIVE_WIN32
 #define GLFW_EXPOSE_NATIVE_WIN32
 #endif
+<<<<<<< Updated upstream
 #include <GLFW/glfw3native.h>   // for glfwGetWin32Window()
 #elif defined(__APPLE__)
 #ifndef GLFW_EXPOSE_NATIVE_COCOA
@@ -138,6 +139,15 @@
 #endif
 #include <GLFW/glfw3native.h>   // for getting the X11/Wayland window
 #undef Status                   // X11 headers are leaking this.
+=======
+#include <../GLFW/include/GLFW/glfw3native.h>   // for glfwGetWin32Window()
+#endif
+#ifdef __APPLE__
+#ifndef GLFW_EXPOSE_NATIVE_COCOA
+#define GLFW_EXPOSE_NATIVE_COCOA
+#endif
+#include <../GLFW/include/GLFW/glfw3native.h>   // for glfwGetCocoaWindow()
+>>>>>>> Stashed changes
 #endif
 #ifndef _WIN32
 #include <unistd.h>             // for usleep()
