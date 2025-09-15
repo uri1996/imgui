@@ -582,7 +582,7 @@ static void stb_textedit_find_charpos(StbFindState *find, IMSTB_TEXTEDIT_STRING 
       STB_TEXTEDIT_LAYOUTROW(&r, str, i);
       if (n < i + r.num_chars)
          break;
-      if (str->LastMoveDirectionLR == ImGuiDir_Right && str->Stb->cursor == i + r.num_chars && STB_TEXTEDIT_GETCHAR(str, i + r.num_chars - 1) != STB_TEXTEDIT_NEWLINE) // [DEAR IMGUI] Wrapping point handling
+      if (str->LastMoveDirectionLR == ImGuiDir_Right && str->Stb->cursor > 0 && str->Stb->cursor == i + r.num_chars && STB_TEXTEDIT_GETCHAR(str, i + r.num_chars - 1) != STB_TEXTEDIT_NEWLINE) // [DEAR IMGUI] Wrapping point handling
          break;
       if (i + r.num_chars == z && z > 0 && STB_TEXTEDIT_GETCHAR(str, z - 1) != STB_TEXTEDIT_NEWLINE)  // [DEAR IMGUI] special handling for last line
          break;   // [DEAR IMGUI]
@@ -1154,7 +1154,7 @@ retry:
 #endif
       case STB_TEXTEDIT_K_LINEEND: {
          stb_textedit_clamp(str, state);
-         stb_textedit_move_to_first(state);
+         stb_textedit_move_to_last(str, state);
          state->cursor = STB_TEXTEDIT_MOVELINEEND(str, state, state->cursor);
          state->has_preferred_x = 0;
          break;
